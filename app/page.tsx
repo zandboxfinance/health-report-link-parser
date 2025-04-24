@@ -15,10 +15,8 @@ export default function ReportLinkGenerator() {
       const query = url.search;
 
       const report1Url = `https://health.mattc.art/${query}`;
-      const report2Url = `https://health-admin.mattc.art/${query}`;
 
       setReport1(report1Url);
-      setReport2(report2Url);
     } catch (error) {
       alert("請輸入正確的網址格式。");
     }
@@ -45,22 +43,6 @@ export default function ReportLinkGenerator() {
               className="text-blue-600 underline break-all"
             >
               {report1}
-            </a>
-          </CardContent>
-        </Card>
-      )}
-
-      {report2 && (
-        <Card>
-          <CardContent className="p-4">
-            <p className="font-semibold">教授 Report 2 連結：</p>
-            <a
-              href={report2}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline break-all"
-            >
-              {report2}
             </a>
           </CardContent>
         </Card>
