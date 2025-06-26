@@ -63,7 +63,7 @@ export default function ReportLinkGenerator() {
               {r.report1}
             </a>
 
-            <p className="font-semibold">教授 Report 2:</p>
+            {/* <p className="font-semibold">教授 Report 2:</p>
             <a
               href={r.report2}
               target="_blank"
@@ -71,7 +71,7 @@ export default function ReportLinkGenerator() {
               className="text-blue-600 underline block break-all"
             >
               {r.report2}
-            </a>
+            </a> */}
           </CardContent>
         </Card>
       ))}
