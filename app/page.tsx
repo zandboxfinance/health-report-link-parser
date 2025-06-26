@@ -74,7 +74,7 @@ export default function ReportLinkGenerator() {
         </Card>
       )}
 
-      {report2.length > 0 && (
+      {/* {report2.length > 0 && (
         <Card>
           <CardContent className="p-4 space-y-2">
             <p className="font-semibold">教授 Report 2 連結：</p>
@@ -91,7 +91,7 @@ export default function ReportLinkGenerator() {
             ))}
           </CardContent>
         </Card>
-      )}
+      )} */}
 
     </div>
   );
