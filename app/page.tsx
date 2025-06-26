@@ -6,8 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function ReportLinkGenerator() {
   const [inputUrl, setInputUrl] = useState("");
-  const [reports, setReports] = useState<{ original: string; report1: string; report2: string }[]>([]);
-
+  const [report1, setReport1] = useState<string[]>([]);
+  const [report2, setReport2] = useState<string[]>([]);
 
   const generateLinks = () => {
     const rawLinks = inputUrl
@@ -15,26 +15,33 @@ export default function ReportLinkGenerator() {
       .map(link => link.trim())
       .filter(link => link !== '');
 
-    const generatedReports: typeof reports = [];
+    const report1Array: string[] = [];
+    const report2Array: string[] = [];
 
     rawLinks.forEach((link) => {
       try {
         const url = new URL(link);
         const query = url.search;
 
-        generatedReports.push({
-          original: link,
-          report1: `https://health.mattc.art${query}`,
-          report2: `https://health-admin.mattc.art${query}`,
-        });
+        const report1Url = `https://health.mattc.art${query}`;
+        const report2Url = `https://health-admin.mattc.art${query}`;
+
+        report1Array.push(report1Url);
+        report2Array.push(report2Url);
       } catch (err) {
         console.warn("❌ Invalid URL:", link);
         alert("請輸入正確的網址格式。");
       }
     });
 
-    setReports(generatedReports);
+    setReport1(report1Array);
+    setReport2(report2Array);
   };
+
+
+
+  
+
 
   return (
     <div className="p-6 max-w-xl mx-auto space-y-4">
@@ -42,37 +49,50 @@ export default function ReportLinkGenerator() {
       <Input
         placeholder="貼上 Jinmu 的報告網址"
         value={inputUrl}
+        multiline={true}
         onChange={(e) => setInputUrl(e.target.value)}
       />
+      
       <Button variant="outline" onClick={generateLinks}>產生報告連結</Button>
 
-      {reports.length > 0 && reports.map((r, index) => (
-        <Card key={index}>
+      {report1.length > 0 && (
+        <Card>
           <CardContent className="p-4 space-y-2">
-            <p className="font-semibold">原始網址 {index + 1}:</p>
-
-            <p className="font-semibold">客戶 Report 1:</p>
-            <a
-              href={r.report1}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline block break-all"
-            >
-              {r.report1}
-            </a>
-
-            <p className="font-semibold">教授 Report 2:</p>
-            <a
-              href={r.report2}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline block break-all"
-            >
-              {r.report2}
-            </a>
+            <p className="font-semibold">客戶 Report 1 連結：</p>
+            {report1.map((link, index) => (
+              <a
+                key={index}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline block break-all"
+              >
+                {link}
+              </a>
+            ))}
           </CardContent>
         </Card>
-      ))}
+      )}
+
+      {report2.length > 0 && (
+        <Card>
+          <CardContent className="p-4 space-y-2">
+            <p className="font-semibold">教授 Report 2 連結：</p>
+            {report2.map((link, index) => (
+              <a
+                key={index}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline block break-all"
+              >
+                {link}
+              </a>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
     </div>
   );
 }
