@@ -22,18 +22,12 @@ export default function ReportLinkGenerator() {
         const url = new URL(link);
         const query = url.search;
 
-        generatedReports.push({
-          original: link,
-          report1: `https://health.mattc.art${query}`,
-          report2: `https://health-admin.mattc.art${query}`,
-        });
-      } catch (err) {
-        console.warn("❌ Invalid URL:", link);
-        alert("請輸入正確的網址格式。");
-      }
-    });
+      const report1Url = `https://health.mattc.art/${query}`;
 
-    setReports(generatedReports);
+      setReport1(report1Url);
+    } catch (error) {
+      alert("請輸入正確的網址格式。");
+    }
   };
 
   return (
@@ -62,19 +56,9 @@ export default function ReportLinkGenerator() {
             >
               {r.report1}
             </a>
-
-            <p className="font-semibold">教授 Report 2:</p>
-            <a
-              href={r.report2}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline block break-all"
-            >
-              {r.report2}
-            </a>
           </CardContent>
         </Card>
-      ))}
+      )}
     </div>
   );
 }
