@@ -7,9 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function ReportLinkGenerator() {
   const [inputUrl, setInputUrl] = useState("");
   const [reports, setReports] = useState<{ original: string; report1: string; report2: string }[]>([]);
+  const [name, setName] = useState("");
 
 
   const generateLinks = () => {
+    if (!name.trim()) {
+      setName("")
+    }
+
     const rawLinks = inputUrl
       .split('\n')
       .map(link => link.trim())
@@ -20,12 +25,17 @@ export default function ReportLinkGenerator() {
     rawLinks.forEach((link) => {
       try {
         const url = new URL(link);
-        const query = url.search;
+        // const query = url.search;
+
+        url.searchParams.set("name", name);
+        const queryString = url.search; 
+        // report1: `https://health.mattc.art${queryString}`,
+        // report2: `https://health-admin.mattc.art${queryString}`,
 
         generatedReports.push({
           original: link,
-          report1: `https://health.mattc.art${query}`,
-          report2: `https://health-admin.mattc.art${query}`,
+            report1: `http://localhost:5173/${queryString}`,
+            report2: `http://localhost:5173/${queryString}`,
         });
       } catch (err) {
         console.warn("❌ Invalid URL:", link);
@@ -39,6 +49,13 @@ export default function ReportLinkGenerator() {
   return (
     <div className="p-6 max-w-xl mx-auto space-y-4">
       <h1 className="text-2xl font-bold">Report Link 產生器</h1>
+      <Input
+        placeholder="輸入患者姓名"
+        value={name}
+        multiline={false}
+        onChange={(e) => setName(e.target.value)}
+      />
+
       <Input
         placeholder="貼上 Jinmu 的報告網址"
         value={inputUrl}
