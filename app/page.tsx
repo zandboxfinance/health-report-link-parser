@@ -25,8 +25,7 @@ export default function ReportLinkGenerator() {
     rawLinks.forEach((link) => {
       try {
         const url = new URL(link);
-        // const query = url.search;
-
+        
         url.searchParams.set("name", name);
         const queryString = url.search; 
         
