@@ -29,13 +29,12 @@ export default function ReportLinkGenerator() {
 
         url.searchParams.set("name", name);
         const queryString = url.search; 
-        // report1: `https://health.mattc.art${queryString}`,
-        // report2: `https://health-admin.mattc.art${queryString}`,
+        
 
         generatedReports.push({
           original: link,
-            report1: `http://localhost:5173/${queryString}`,
-            report2: `http://localhost:5173/${queryString}`,
+          report1: `https://health.mattc.art${queryString}`,
+          report2: `https://health-admin.mattc.art${queryString}`,
         });
       } catch (err) {
         console.warn("❌ Invalid URL:", link);
